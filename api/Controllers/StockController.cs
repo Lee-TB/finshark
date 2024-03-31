@@ -3,12 +3,11 @@ using api.Dtos.Stock;
 using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers;
 
-[Route("api/stock")]
 [ApiController]
+[Route("api/stock")]
 public class StockController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
