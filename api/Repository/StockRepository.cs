@@ -33,6 +33,24 @@ public class StockRepository : IStockRepository
             stocks = stocks.Where(s => s.Industry == query.Industry);
         }
 
+        if (!string.IsNullOrEmpty(query.SortBy))
+        {
+            if (query.SortBy.Equals("Symbol", StringComparison.OrdinalIgnoreCase))
+            {
+                stocks = query.IsDescending ? stocks.OrderByDescending(s => s.Symbol) : stocks.OrderBy(s => s.Symbol);
+            }
+
+            if (query.SortBy.Equals("CompanyName", StringComparison.OrdinalIgnoreCase))
+            {
+                stocks = query.IsDescending ? stocks.OrderByDescending(s => s.CompanyName) : stocks.OrderBy(s => s.CompanyName);
+            }
+
+            if (query.SortBy.Equals("Industry", StringComparison.OrdinalIgnoreCase))
+            {
+                stocks = query.IsDescending ? stocks.OrderByDescending(s => s.Industry) : stocks.OrderBy(s => s.Industry);
+            }
+        }
+
         return await stocks.ToListAsync();
     }
 
