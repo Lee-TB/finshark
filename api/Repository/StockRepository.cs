@@ -31,7 +31,7 @@ public class StockRepository : IStockRepository
     }
 
 
-    public async Task<Stock?> UpdateAsync(int id, UpdateStockRequestDto updateStockDto)
+    public async Task<Stock?> UpdateAsync(int id, Stock stockModel)
     {
         var existingStock = await _context.Stocks.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -40,12 +40,12 @@ public class StockRepository : IStockRepository
             return null;
         }
 
-        existingStock.Symbol = updateStockDto.Symbol;
-        existingStock.CompanyName = updateStockDto.CompanyName;
-        existingStock.Purchase = updateStockDto.Purchase;
-        existingStock.LastDiv = updateStockDto.LastDiv;
-        existingStock.Industry = updateStockDto.Industry;
-        existingStock.MarketCap = updateStockDto.MarketCap;
+        existingStock.Symbol = stockModel.Symbol;
+        existingStock.CompanyName = stockModel.CompanyName;
+        existingStock.Purchase = stockModel.Purchase;
+        existingStock.LastDiv = stockModel.LastDiv;
+        existingStock.Industry = stockModel.Industry;
+        existingStock.MarketCap = stockModel.MarketCap;
 
         await _context.SaveChangesAsync();
 
