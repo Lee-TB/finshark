@@ -12,6 +12,7 @@ public class PortfolioRepository : IPortfolioRepository
     {
         _context = context;
     }
+
     public async Task<List<Stock>> GetUserPortfolioAsync(AppUser user)
     {
         return await _context.Portfolios.Where(p => p.AppUserId == user.Id)
@@ -25,5 +26,12 @@ public class PortfolioRepository : IPortfolioRepository
             MarketCap = p.Stock.MarketCap,
 
         }).ToListAsync();
+    }
+
+    public async Task<Portfolio> CreateAsync(Portfolio portfolioModel)
+    {
+        await _context.Portfolios.AddAsync(portfolioModel);
+        await _context.SaveChangesAsync();
+        return portfolioModel;
     }
 }

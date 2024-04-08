@@ -13,11 +13,13 @@ public class PortfolioController : ControllerBase
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly IPortfolioRepository _portfolioRepository;
+    private readonly IStockRepository _stockRepository;
 
-    public PortfolioController(UserManager<AppUser> userManager, IPortfolioRepository portfolioRepository)
+    public PortfolioController(UserManager<AppUser> userManager, IPortfolioRepository portfolioRepository, IStockRepository stockRepository)
     {
         _userManager = userManager;
         _portfolioRepository = portfolioRepository;
+        _stockRepository = stockRepository;
     }
 
     [HttpGet]
@@ -28,5 +30,36 @@ public class PortfolioController : ControllerBase
         var appUser = await _userManager.FindByNameAsync(username);
         var userPortfolios = await _portfolioRepository.GetUserPortfolioAsync(appUser);
         return Ok(userPortfolios);
+    }
+
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> AddPortfolio(string symbol)
+    {
+        var username = User.GetUsername();
+        var appUser = await _userManager.FindByNameAsync(username);
+
+        var stock = await _stockRepository.GetBySymbolAsync(symbol);
+
+        if (stock == null)
+        {
+            return BadRequest("Stock not found");
+        }
+
+        var userPortfolio = await _portfolioRepository.GetUserPortfolioAsync(appUser);
+
+        if (userPortfolio.Any(x => x.Symbol.ToLower() == symbol.ToLower()))
+        {
+            return BadRequest("Cannot add same stock to portfolio");
+        }
+
+        var portfolioModel = new Portfolio
+        {
+            StockId = stock.Id,
+            AppUserId = appUser.Id,
+        };
+
+        await _portfolioRepository.CreateAsync(portfolioModel);
+        return Created();
     }
 }
