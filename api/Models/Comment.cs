@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.Net.Http.Headers;
 
 namespace api.Models;
 
@@ -12,4 +13,6 @@ public class Comment
     public int? StockId { get; set; }
     // Navigation property
     public Stock? Stock { get; set; }
+    public string AppUserId { get; set; }
+    public AppUser AppUser { get; set; }
 }
