@@ -1,22 +1,16 @@
-import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { ChangeEvent, SyntheticEvent } from "react";
 
-type Props = {};
+interface Props {
+  search?: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onClick: (e: SyntheticEvent) => void;
+}
 
-export default function Search({}: Props) {
-  const [search, setSearch] = useState<string>("");
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
-
-  const handleClick = (e: SyntheticEvent) => {
-    console.log(e);
-  };
-
+export default function Search({ search, onChange, onClick }: Props) {
   return (
     <div>
-      <input type="text" value={search} onChange={handleInputChange} />
-      <button onClick={handleClick}>click</button>
+      <input type="text" value={search} onChange={onChange} />
+      <button onClick={onClick}>click</button>
     </div>
   );
 }
