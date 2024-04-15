@@ -1,25 +1,26 @@
+import { SyntheticEvent } from "react";
+import { CompanySearch } from "../../company";
+import AddPortfolio from "../Portfolio/AddPortfolio/AddPortfolio";
 import "./Card.css";
 
 interface Props {
-  companyName: string;
-  ticker: string;
-  price: number;
+  companyResult: CompanySearch;
+  onPortfolioCreate: (e: SyntheticEvent) => void;
 }
 
-const Card = ({ companyName, ticker, price }: Props) => {
+const Card = ({ companyResult, onPortfolioCreate }: Props) => {
   return (
     <div className="card">
-      <img src="https://placehold.co/200x300" alt={companyName} />
+      <img src="https://placehold.co/200x200" alt={companyResult.symbol} />
       <div className="details">
-        <h2>
-          {companyName} ({ticker.toLowerCase()})
-        </h2>
-        <p>${price}</p>
+        <h3 className="title">
+          {companyResult.name} ({companyResult.symbol.toLowerCase()})
+        </h3>
       </div>
-      <p className="infon">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis,
-        enim?
-      </p>
+      <AddPortfolio
+        onPortfolioCreate={onPortfolioCreate}
+        symbol={companyResult.symbol}
+      />
     </div>
   );
 };

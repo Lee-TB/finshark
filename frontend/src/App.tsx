@@ -13,9 +13,9 @@ function App() {
     setSearch(e.target.value);
   };
 
-  const handleSearchClick = async () => {
+  const handleSearchClick = async (e: SyntheticEvent) => {
+    e.preventDefault();
     const result = await searchCompanies(search);
-    console.log(result.data);
 
     if (typeof result === "string") {
       setServerError(result);
@@ -24,14 +24,23 @@ function App() {
     }
   };
 
+  const handleCreatePortfolio = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    console.log("create pofol");
+  };
+
   return (
     <>
       <Search
-        onClick={handleSearchClick}
+        onSubmit={handleSearchClick}
         onChange={handleSearchChange}
         search={search}
       />
-      <CardList />
+      {serverError && <h1>{serverError}</h1>}
+      <CardList
+        searchData={searchData}
+        onPortfolioCreate={handleCreatePortfolio}
+      />
     </>
   );
 }
