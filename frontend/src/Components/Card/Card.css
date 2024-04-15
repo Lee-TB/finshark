@@ -6,6 +6,8 @@
   align-items: center;
   max-width: 200px;
   margin: 20px;
+  padding: 10px;
+  padding-top: 0;
   border-radius: 4px;
   overflow: hidden;
 }

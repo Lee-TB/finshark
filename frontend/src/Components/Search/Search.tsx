@@ -10,7 +10,7 @@ export default function Search({ search, onChange, onClick }: Props) {
   return (
     <div>
       <input type="text" value={search} onChange={onChange} />
-      <button onClick={onClick}>click</button>
+      <button onClick={onClick}>Search</button>
     </div>
   );
 }
