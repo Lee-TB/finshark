@@ -5,12 +5,17 @@ import SearchPage from "../Pages/SearchPage/SearchPage";
 import CompanyPage from "../Pages/CompanyPage/CompanyPage";
 import CompanyProfile from "../Components/CompanyProfile/CompanyProfile";
 import IncomeStatement from "../Components/IncomeStatement/IncomeStatement";
+import DesignPage from "../Pages/DesignPage/DesignPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "design-guide",
+        element: <DesignPage />,
+      },
       {
         path: "",
         element: <HomePage />,
