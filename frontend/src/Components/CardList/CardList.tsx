@@ -10,7 +10,6 @@ interface Props {
 export default function CardList({ searchData, onPortfolioCreate }: Props) {
   return (
     <div>
-      <h2>List</h2>
       {searchData && searchData.length > 0 ? (
         searchData.map((row) => (
           <Card
@@ -20,7 +19,9 @@ export default function CardList({ searchData, onPortfolioCreate }: Props) {
           />
         ))
       ) : (
-        <h2>No content</h2>
+        <p className="mb-3 mt-3 text-xl font-semibold text-center md:text-xl">
+          No content
+        </p>
       )}
     </div>
   );
