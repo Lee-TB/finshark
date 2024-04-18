@@ -17,8 +17,6 @@ const CompanyPage = (props: Props) => {
       if (typeof ticker !== "string") return;
       const result = await getCompanyProfile(ticker);
       if (result !== undefined) {
-        console.log(result.data[0]);
-
         setCompany(result.data[0]);
       }
     };
