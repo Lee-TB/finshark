@@ -55,6 +55,7 @@ public class CommentController : ControllerBase
         return Ok(comment.ToCommentDto());
     }
 
+    [Authorize]
     [HttpPost("{symbol:alpha}")]
     public async Task<IActionResult> Create([FromRoute] string symbol, CreateCommentDto commentDto)
     {
